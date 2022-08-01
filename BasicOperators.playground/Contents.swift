@@ -10,6 +10,8 @@ func example(_ title: String, block: () -> Void) {
     print("----------------------------------------\n\n")
 }
 
+// Map - Transform publisher output, publishes result
+
 example("Map") {
     [1, 2, 3, 5, 8, 13].publisher
         .map { String($0 * 10) }
@@ -20,6 +22,8 @@ example("Map") {
         .sink { print($0) }
 }
 
+// Filter - Publishes values that match condition
+
 example("Filter") {
     _ = [1, 2, 3, 5, 8, 13].publisher
         .map { $0 * 10 }
@@ -27,6 +31,8 @@ example("Filter") {
         .sink(receiveCompletion: { print($0)},
               receiveValue: { print($0) })
 }
+
+// Scan - Receives previous return value and next element
 
 example("Scan - Accumulator") {
     _ = ["b", "e", "n"].publisher
@@ -62,12 +68,15 @@ example("Scan - Accumulator") {
     }
 }
 
-example("RemoveDuplicates - Just previous or next ones") {
+// RemoveDuplicates - Publishes without duplicates (just previous or next ones)
+
+example("RemoveDuplicates") {
     _ = [1, 1, 1, 1, 2, 2, 3, 4, 5, 1, 2].publisher
         .removeDuplicates()
         .sink { print($0) }
 }
 
+// CompactMap - Publishes without nil values
 
 example("CompactMap - Removes nil values") {
     let values: [Int?] = [1, nil, 2, nil, 3]
