@@ -46,4 +46,16 @@ func exampleSwitchToLatest() {
         .store(in: &cancellables)
 }
 
+func exampleSimpleSwitchToLatest() {
+    let x = [[1], [2], [3]]
+    
+    x.publisher
+        .map { $0.publisher }
+        .switchToLatest()
+        .sink { int in
+            print(int)
+        }
+}
+
 exampleSwitchToLatest()
+exampleSimpleSwitchToLatest()
